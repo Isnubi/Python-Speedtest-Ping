@@ -93,11 +93,10 @@ You can install the requirements by following these steps.
 
 2. Launch the install.sh file to install the required packages.
 
-   * Debian/Ubuntu:
-     ```sh
-     sudo chown +x install.sh
-     ./install.sh
-     ```
+    ```sh
+    sudo chown +x install.sh
+    ./install.sh
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
