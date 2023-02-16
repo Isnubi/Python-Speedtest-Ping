@@ -21,7 +21,7 @@
     <a href="https://github.com/Isnubi/Python-Speedtest-Ping/issues">Report Bug</a>
     ·
     <a href="https://github.com/Isnubi/Python-Speedtest-Ping/issues">Request Feature</a>
-  </p>
+  </p>  
 </div>
 
 
@@ -55,7 +55,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project is a simple script that allows you to test the speed of your internet connectionand the ping to the root dns servers.
+This project is a simple script, with a GUI, that allows you to test the speed of your internet connectionand the ping to the root dns servers.
+
+<div align="center">
+    <img src="docs/gui.png"/>
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -2,6 +2,8 @@ import json
 import os
 import datetime
 from pythonping import ping
+import tkinter as tk
+from tkinter import ttk
 
 
 root_dns = ( # in alphabetical order
@@ -83,5 +85,60 @@ def sum_results(st_r, ping_r):
     return results
 
 
+def script_ui():
+    """
+    Create the UI for the script
+    :return: None
+    """
+    def speedtest_button():
+        """
+        Button for speedtest
+        :return: None
+        """
+        server_id = server_id_entry.get()
+        st_results = speedtest(server_id)
+        if st_results is not None:
+            results_textbox.delete('1.0', tk.END)
+            results_textbox.insert(tk.END, 'Download: ' + str(st_results['download']) + ' Mbit/s\n')
+            results_textbox.insert(tk.END, 'Upload: ' + str(st_results['upload']) + ' Mbit/s\n')
+            results_textbox.insert(tk.END, 'Ping: ' + str(st_results['ping']) + ' ms\n')
+        else:
+            results_textbox.delete('1.0', tk.END)
+            results_textbox.insert(tk.END, 'Error: Speedtest failed')
+
+    def ping_button():
+        """
+        Button for ping
+        :return: None
+        """
+        ping_results = ping_root(root_dns)
+        results_textbox.delete('1.0', tk.END)
+        for dns in ping_results:
+            if ping_results[dns] is None:
+                results_textbox.insert(tk.END, dns + ': ' + 'Timeout\n')
+            else:
+                results_textbox.insert(tk.END, dns + ': ' + str(ping_results[dns]) + ' ms\n')
+
+    root = tk.Tk()
+    root.title('Speedtest')
+    root.geometry('500x300')
+    root.resizable(False, False)
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, weight=1)
+
+    server_id_label = ttk.Label(root, text='Server ID')
+    server_id_label.grid(row=0, column=0, sticky='w', padx=5, pady=5)
+    server_id_entry = ttk.Entry(root, width=5)
+    server_id_entry.grid(row=0, column=1, sticky='w', padx=5, pady=5)
+    speedtest_button = ttk.Button(root, text='Speedtest', command=speedtest_button)
+    speedtest_button.grid(row=1, column=0, sticky='w', padx=5, pady=5)
+    ping_button = ttk.Button(root, text='Ping', command=ping_button)
+    ping_button.grid(row=1, column=1, sticky='w', padx=5, pady=5)
+    results_textbox = tk.Text(root, height=8, width=30)
+    results_textbox.grid(row=2, column=0, columnspan=2, sticky='w', padx=5, pady=5)
+
+    root.mainloop()
+
+
 if __name__ == '__main__':
-    print(sum_results(speedtest('24215'), ping_root(root_dns)))
+    script_ui()
